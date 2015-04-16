@@ -660,6 +660,9 @@ QFontEngine *QFontconfigDatabase::fontEngine(const QFontDef &f, void *usrPtr)
 QFontEngine *QFontconfigDatabase::fontEngine(const QByteArray &fontData, qreal pixelSize, QFont::HintingPreference hintingPreference)
 {
     QFontEngineFT *engine = static_cast<QFontEngineFT*>(QBasicFontDatabase::fontEngine(fontData, pixelSize, hintingPreference));
+    //https://github.com/ariya/phantomjs/issues/13090
+    if(engine == 0)return 0;
+    //
     QFontDef fontDef = engine->fontDef;
 
     QFontEngineFT::GlyphFormat format;
